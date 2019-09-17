@@ -20,8 +20,6 @@ function setup() {
     //the button mousePressed function is tied to the general mousePressed function
     faceColor = "orange";
   });
-
-
 }
 
 function draw() {
@@ -37,6 +35,10 @@ function draw() {
   if(mouseX > width/2){
     console.log("right hand side");
     background("green");
+  }
+  if(mouthX = width/2){
+    console.log("center head side");
+    background("yellow");
   }
 
 

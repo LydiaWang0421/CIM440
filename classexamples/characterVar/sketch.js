@@ -1,7 +1,7 @@
 var pointX = 0;
 var pointY = 0;
 
-var point2; //variable undefined
+//var point2; //variable undefined
 
 function setup() {
   // put setup code here

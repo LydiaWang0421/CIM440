@@ -30,6 +30,7 @@ function draw() {
 
   strokeWeight(1);
   line(80,215,180,215); //mouth split
+  //line(x1, y1, x2, y2)
 
   //width and height
   //width/2 center point of width, height/2 center point of height
@@ -47,6 +48,7 @@ function draw() {
   arc(400,100,50,50,HALF_PI,PI+HALF_PI);
 
   triangle(100,400,120,420,80,420);
+  //triangle(x1, y1, x2, y2, x3, y3)
 
   line(100,300,200,300); //horizontal line, use a common y value
   line(100,200,100,300); //vertical line, use a common x value
