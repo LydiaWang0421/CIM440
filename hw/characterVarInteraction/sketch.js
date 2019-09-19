@@ -2,7 +2,7 @@ var eyeSize = 20;
 var faceSize = 100;
 var shirtSize = 40;
 var buttonSize = 10;
-var handSize = 25;
+var handSize = 25; 
 
 var faceColor = "BlanchedAlmond";
 var hairColor = "black";
