@@ -8,21 +8,21 @@
 
 var imageArray = [];
 
-var hitX = [300];
-var hitY = [250];
+var hitX = [220,300];
+var hitY = [250,250];
 
 var hitSize = 50;
 
 var currentImage = 0;
 
 function preload(){
-  imageArray[5] = loadImage("images/sloth.jpg");
-  imageArray[4] = loadImage("images/puppy.jpg");
-  imageArray[3] = loadImage("images/dinosaur.jpg");
+  imageArray[0] = loadImage("images/sloth.jpg");
+  imageArray[1] = loadImage("images/puppy.jpg");
+  imageArray[2] = loadImage("images/dinosaur.jpg");
 
-  imageArray[2] = loadImage("images/rabit.jpg");
-  imageArray[1] = loadImage("images/cat.jpg");
-  imageArray[0] = loadImage("images/lion.jpg");
+  imageArray[3] = loadImage("images/rabit.jpg");
+  imageArray[4] = loadImage("images/cat.jpg");
+  imageArray[5] = loadImage("images/lion.jpg");
 }
 
 function setup() {
@@ -32,9 +32,10 @@ function setup() {
 
 function draw() {
   background(255);
-  image(imageArray[currentImage],0,0,imageArray[currentImage].width/4,imageArray[currentImage].height/4);
+  image(imageArray[currentImage],0,0,imageArray[currentImage].width/4,imageArray[currentImage].height/4);  rect(hitX[0],hitY[0],hitSize,hitSize);
 
-  rect(hitX[0],hitY[0],hitSize,hitSize);
+  rect(hitX[1],hitY[1],hitSize,hitSize);
+  //image(imageArray[currentImage],5,5,imageArray[currentImage].width/4,imageArray[currentImage].height/4);
 
 } //end of draw
 
@@ -46,5 +47,13 @@ function mousePressed(){
       currentImage = 0;
     } //check length
   } //end of hit[0] click
+
+  if(mouseX > hitX[1] && mouseX < hitX[1] + hitSize && mouseY > hitY[1] && mouseY < hitY[1] + hitSize){
+    console.log("Click button 1");
+    currentImage = currentImage + 1;
+    if(currentImage == 6){
+      currentImage = 5;
+    } //check length
+  } //end of hit[1] click
 
 } //end of mousePressed
