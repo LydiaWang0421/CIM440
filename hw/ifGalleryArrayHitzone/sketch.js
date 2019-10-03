@@ -35,8 +35,6 @@ function draw() {
   image(imageArray[currentImage],0,0,imageArray[currentImage].width/4,imageArray[currentImage].height/4);  rect(hitX[0],hitY[0],hitSize,hitSize);
 
   rect(hitX[1],hitY[1],hitSize,hitSize);
-  //image(imageArray[currentImage],5,5,imageArray[currentImage].width/4,imageArray[currentImage].height/4);
-
 } //end of draw
 
 function mousePressed(){
@@ -50,8 +48,8 @@ function mousePressed(){
 
   if(mouseX > hitX[1] && mouseX < hitX[1] + hitSize && mouseY > hitY[1] && mouseY < hitY[1] + hitSize){
     console.log("Click button 1");
-    currentImage = currentImage + 1;
-    if(currentImage == 6){
+    currentImage = currentImage - 1;
+    if(currentImage == -1){
       currentImage = 5;
     } //check length
   } //end of hit[1] click
