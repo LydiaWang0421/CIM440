@@ -25,6 +25,7 @@ function setup() {
 function draw() {
   background(255);
   image(imageArray[currentImage],0,0,imageArray[currentImage].width/4,imageArray[currentImage].height/4);
+  image(imageArray[currentImage],300,300,imageArray[currentImage].width/4,imageArray[currentImage].height/4);
 
   rect(hitX[0],hitY[0],hitSize,hitSize);
   rect(hitX[1],hitY[1],hitSize,hitSize);
