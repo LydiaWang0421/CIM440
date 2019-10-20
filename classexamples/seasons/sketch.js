@@ -10,7 +10,7 @@ var snowAmount = 100;
 
 var leafX = [];
 var leafY = [];
-var leafAmount = 100;
+var leafAmount = 120;
 var leafImage;
 
 function preload(){

@@ -1,13 +1,13 @@
 var puppies;
 
-car showOrHide = false;
+var showOrHide = false;
 
 var show;
 var hide;
 
 function preload(){
 
-  puppies = loadImage("puppies.jpg");
+  puppies = loadImage("puppy.jpg");
 
   show = createButton("Show Puppy");
   show.mousePressed(function(){
