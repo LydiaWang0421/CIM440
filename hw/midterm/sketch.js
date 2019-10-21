@@ -140,18 +140,22 @@ function draw() {
 
   stroke(houseStroke);
   fill(houseColor);
-  rect(50,280,340,280); //door
+  rect(50,280,340,280); //house
   triangle(40,280,400,280,220,75); //roof
   triangle(60,280,380,280,220,95);
-  rect(80,400,150,160); //house
+  rect(40,280,360,4);
+  rect(78,400,152,160);
+  rect(80,400,150,160); //door
   rect(120,500,70,60); //door small
   circle(100,460,20,20);
 
   stroke(0);
   fill(255);
+  rect(255,310,100,90, 30,30); //window frame
   rect(260,320,90,70, 30,30); //window
   line(260,355,350,355); //horizontal
   line(305,320,305,390); //vertical
+  triangle(160,215,280,215,220,130); //window higher frame
   triangle(170,210,270,210,220,140); //window higher
   line(220,140,220,210);
 
