@@ -1,14 +1,32 @@
 var halloButton;
 var autumnButton;
 
+var grassX = 10;
+var grassY = 578;
+var grassW = 20;
+var grassH = 20;
+
+var hitX = 650;
+var hitY = 400;
+var threshold = 20;
+var hitDistance = 0;
+
 var treeImage;
 var htreeImage;
 var trickImage;
 var witchImage;
+var candyImage;
+var flagImage;
+var macaronImage;
+var cupcakeImage;
 
 var htree = false;
 var trick = false;
 var witch = false;
+var candy = false;
+var flag = false;
+var macaron = false;
+var cupcake = false;
 
 var leafX = [];
 var leafY = [];
@@ -17,9 +35,10 @@ var leafImage;
 
 var batX = [];
 var batY = [];
-var batAmount = 80;
+var batAmount = 60;
 var batImage;
 
+var pumpkinColor = "orange";
 var puplineColor = "yellow";
 var houseColor = "Lavender";
 var houseStroke = 0;
@@ -32,6 +51,11 @@ function preload(){
   batImage = loadImage("images/bat.png");
   trickImage = loadImage("images/trick.png");
   witchImage = loadImage("images/witch.png");
+
+  candyImage = loadImage("images/candy.png");
+  flagImage = loadImage("images/flag.png");
+  macaronImage = loadImage("images/macaron.png");
+  cupcakeImage = loadImage("images/cupcake.png");
 
 } //end of preload
 
@@ -52,6 +76,10 @@ function setup() {
     trick = true;
     htree = true;
     witch = true;
+    candy = true;
+    flag = false;
+    macaron = false;
+    cupcake = false;
 
     puplineColor = "black";
     houseColor = "DarkSlateGray";
@@ -59,12 +87,12 @@ function setup() {
 
     for(var i = 10; i < batAmount; i++){
       batX[i] = random(0,1000);
-      batY[i] = random(600,300);
+      batY[i] = random(height, height + 300);
     }
     console.log("batX" + batX);
     console.log("batY" + batY);
 
-  }); //end of halloween button
+  }); //end of halloButton
 
   autumnButton = createButton("Back to Autumn! ");
   autumnButton.position(10,30);
@@ -72,17 +100,67 @@ function setup() {
     trick = false;
     htree = false;
     witch = false;
+    candy = false;
+    flag = true;
+    macaron = false;
+    cupcake = false;
 
     puplineColor = "yellow";
     houseColor = "Lavender";
     houseStroke = 0;
-  });
+  }); //end of autumnButton
+
+  houseButton = createButton("Gingerbread House! ");
+  houseButton.position(240,70);
+  houseButton.mousePressed(function(){
+    candy = true;
+    flag = true;
+    macaron = true;
+    cupcake = true;
+
+    houseColor = "SandyBrown";
+  }); //end of houseButton
 
 } //end of setup
 
 function draw() {
   // put drawing code here
   background("PapayaWhip");
+
+  if(mouseX > grassX && mouseX < grassX+grassW && mouseY > grassY && mouseY < grassY+grassH){
+    console.log("In rectangle");
+    stroke("MediumSeaGreen");
+    strokeWeight(2);
+    fill("MediumSpringGreen");
+    triangle(20,600,40,600,30,570);
+    triangle(40,600,60,600,53,573);
+    triangle(60,600,80,600,72,572);
+    triangle(80,600,90,600,85,566);
+    triangle(90,600,160,600,135,580);
+    triangle(160,600,190,600,175,574);
+    triangle(190,600,210,600,205,580);
+    triangle(210,600,270,600,255,580);
+    triangle(270,600,290,600,275,570);
+    triangle(290,600,320,600,305,580);
+    triangle(320,600,340,600,330,570);
+    triangle(340,600,360,600,353,573);
+    triangle(360,600,390,600,375,574);
+    triangle(390,600,410,600,400,580);
+  }
+  text("What's here? ", grassX, grassY-3);
+  rect(grassX,grassY,grassW,grassH);
+
+  hitDistance = dist(mouseX,mouseY,hitX,hitY);
+  console.log("hitDistance " + hitDistance);
+  if(hitDistance <= threshold){
+    stroke("DarkGreen");
+    fill(255);
+    text("Click here", hitX, hitY+30);
+  }else{
+    stroke(255);
+    fill("orange");
+  }
+  ellipse(hitX,hitY,threshold*2,threshold*2);
 
   if(htree == false){
   image(treeImage, 300,5,900,460);
@@ -94,7 +172,7 @@ function draw() {
 
   stroke("LightYellow");
   strokeWeight(1);
-  fill("orange");
+  fill(pumpkinColor);
   rect(610,450,155,125,80); //pumpkin2 big
   rect(530,475,135,105,80); //pumpkin1 small
   rect(730,450,135,105,80); //pumpkin3 small
@@ -142,9 +220,9 @@ function draw() {
   fill(houseColor);
   rect(50,280,340,280); //house
   triangle(40,280,400,280,220,75); //roof
-  triangle(60,280,380,280,220,95);
-  rect(40,280,360,4);
-  rect(78,400,152,160);
+  triangle(60,280,380,280,220,95); //roof frame
+  rect(40,280,360,4); //eave
+  rect(78,400,152,160); //door line
   rect(80,400,150,160); //door
   rect(120,500,70,60); //door small
   circle(100,460,20,20);
@@ -155,8 +233,8 @@ function draw() {
   rect(260,320,90,70, 30,30); //window
   line(260,355,350,355); //horizontal
   line(305,320,305,390); //vertical
-  triangle(160,215,280,215,220,130); //window higher frame
-  triangle(170,210,270,210,220,140); //window higher
+  triangle(160,215,280,215,220,130); //triangle window frame
+  triangle(170,210,270,210,220,140); //triangle window
   line(220,140,220,210);
 
   for(var l = 0; l < leafAmount; l++){
@@ -167,9 +245,8 @@ function draw() {
     image(leafImage, leafX[l], leafY[l], 20,20);
   }
 
-  //halloween
   for(var b = 0; b < batAmount; b++){
-    if(batY[b]<height){
+    if(batY[b] > -100){
       batY[b]--;
       batX[b] = batX[b] + sin(radians(frameCount));
     }
@@ -184,4 +261,38 @@ function draw() {
   image(witchImage, 350,5,witchImage.width/6,witchImage.height/6);
   }
 
+  if(candy == true){
+    image(candyImage, 24,252,candyImage.width/9,candyImage.height/9);
+    image(candyImage, 75,258,candyImage.width/9,candyImage.height/11);
+    image(candyImage, 128,252,candyImage.width/9,candyImage.height/9);
+    image(candyImage, 180,252,candyImage.width/10,candyImage.height/9);
+  }
+
+  if(flag == true){
+    image(flagImage, 56,358,candyImage.width/5,candyImage.height/9);
+  }
+
+  if(macaron == true){
+    image(macaronImage, 240,258,macaronImage.width/7,macaronImage.height/7); //right1
+    image(macaronImage, 320,258,macaronImage.width/7,macaronImage.height/7); //right2
+    image(macaronImage, 40,535,macaronImage.width/7,macaronImage.height/7); //ground1
+    image(macaronImage, 130,535,macaronImage.width/7,macaronImage.height/7); //ground2
+    image(macaronImage, 220,535,macaronImage.width/7,macaronImage.height/7); //ground3
+    image(macaronImage, 310,535,macaronImage.width/7,macaronImage.height/7); //ground4
+    image(macaronImage, 115,473,macaronImage.width/8,macaronImage.height/6); //window1
+  }
+
+  if(cupcake == true){
+    image(cupcakeImage, 156,176,cupcakeImage.width/5,candyImage.height/19);
+  }
 } //end of draw
+
+function mousePressed(){
+  if(hitDistance <= threshold){
+    console.log("Clicked");
+    pumpkinColor = "DarkGreen";
+  }else{
+    console.log("Clicked outside");
+    pumpkinColor = "orange";
+  }
+}
