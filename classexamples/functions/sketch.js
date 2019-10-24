@@ -1,3 +1,5 @@
+var hitzone3 = false;
+
 function setup() {
   // put setup code here
   createCanvas(400,400);
