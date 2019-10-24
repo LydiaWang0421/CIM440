@@ -6,7 +6,7 @@ function setup() {
 
   hello();
   goodbye("zeven");
-  goodbye("Giana");
+  goodbye("Gianna");
   goodbye("Steven");
 
 } //end of setup
@@ -56,7 +56,7 @@ function goodbye(message){
 
 function circleColor(xpos, ypos, csize, r, g, b){
   fill(r,g,b);
-  ellipser(xpos,ypos, csize,csize);
+  ellipse(xpos,ypos, csize,csize);
 }
 
 function circleHitzone(distX, distY){

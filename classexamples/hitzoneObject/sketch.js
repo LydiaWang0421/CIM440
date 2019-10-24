@@ -36,7 +36,7 @@ class hitzoneObject{
   }
 
   check(){
-    if(mouseX > this.x && mouseX < (this.x + this.boxSize) && mouseY > this.y && mousey < (this.y + this.boxSize)){
+    if(mouseX > this.x && mouseX < (this.x + this.boxSize) && mouseY > this.y && mouseY < (this.y + this.boxSize)){
       //console.log("over button" + this.boxColor);
       this.overlay = true;
     }else{
