@@ -64,6 +64,7 @@ class hitzoneObject{
   display(){
     fill(this.boxColor);
     text(this.label, this.x, this.y-20);
+    //rect(this.x, this.y, this.boxSize, this.boxSize);
     image(this.image, this.x, this.y, this.boxSize, this.boxSize);
 
     if(this.overlay == true){
