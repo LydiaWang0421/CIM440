@@ -1,3 +1,5 @@
+let slider;
+
 var halloButton;
 var autumnButton;
 
@@ -64,14 +66,20 @@ function setup() {
   var cnv = createCanvas(1000,600);
   cnv.id("mycanvas");
 
-  select("#container0").html("<h1>Your sketch title here!</h1>");
-
-  select("#container0").style("width", "1000px");
-  select("#container0").style("margin", "0 auto");
-
+  var container0 = createDiv();
+  container0.id("container0");
+  select("#container0").html("<h1>HAPPY AUTUMN</h1>");
+  select("#container0").style("color", "white");
+  select("#container0").style("text-align", "center");
+  select("#container0").style("width", "1020px");
+  select("#container0").style("margin", "auto auto");
   cnv.parent("#container0");
-
   select('body').style("background-color", "orange");
+
+  colorMode(HSB);
+  slider = createSlider(0, 360, 60, 40);
+  slider.position(30,30);
+  slider.style('width', '80px');
 
   for(var i = 0; i < leafAmount; i++){
     leafX[i] = random(0,width);
@@ -81,7 +89,7 @@ function setup() {
   console.log("leafY" + leafY);
 
   halloButton = createButton("Happy Halloween! ");
-  halloButton.position(10,10);
+  halloButton.position(10,85);
   halloButton.mousePressed(function(){
     trick = true;
     htree = true;
@@ -105,7 +113,7 @@ function setup() {
   }); //end of halloButton
 
   autumnButton = createButton("Back to Autumn! ");
-  autumnButton.position(10,30);
+  autumnButton.position(10,105);
   autumnButton.mousePressed(function(){
     trick = false;
     htree = false;
@@ -121,7 +129,7 @@ function setup() {
   }); //end of autumnButton
 
   houseButton = createButton("Gingerbread House! ");
-  houseButton.position(240,70);
+  houseButton.position(240,120);
   houseButton.mousePressed(function(){
     candy = true;
     flag = true;
@@ -136,6 +144,8 @@ function setup() {
 function draw() {
   // put drawing code here
   background("PapayaWhip");
+
+  let val = slider.value();
 
   if(mouseX > grassX && mouseX < grassX+grassW && mouseY > grassY && mouseY < grassY+grassH){
     console.log("In rectangle");
@@ -238,7 +248,7 @@ function draw() {
   circle(100,460,20,20);
 
   stroke(0);
-  fill(255);
+  fill(val, 100, 100, 1);
   rect(255,310,100,90, 30,30); //window frame
   rect(260,320,90,70, 30,30); //window
   line(260,355,350,355); //horizontal
