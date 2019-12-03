@@ -19,6 +19,7 @@ function setup() {
   cnv.parent("#container0");
 
   select('body').style("background-color", "orange");
+  
   var container1 = createDiv();
   container1.html('<iframe width="560" height="315" src="https://www.youtube.com/embed/yPWkPOfnGsw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>"');
 }

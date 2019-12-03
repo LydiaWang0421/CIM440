@@ -20,6 +20,15 @@ var balloonY = [];
 var balloonAmount = 30;
 var balloonImage;
 
+var chessShow = false;
+var chessVid;
+
+var ropeShow = false;
+var asterisk;
+var platform;
+var GRAVITY = 1;
+var JUMP = 15;
+
 function preload(){
   parkImage = loadImage("images/park.png");
   signImage = loadImage("images/sign.png");
@@ -30,11 +39,24 @@ function preload(){
 
   balloonImage = loadImage("images/balloon.png");
 
+  chessVid = createVideo("images/chessvid.mp4");
+
 } //end of preload
 
 function setup() {
   // put setup code here
-  createCanvas(1000,600);
+  var cnv = createCanvas(1000,600);
+  cnv.id("mycanvas");
+
+  var container0 = createDiv();
+  container0.id("container0");
+  select("#container0").html("<h1>HAPPYGROUND</h1>");
+  select("#container0").style("color", "white");
+  select("#container0").style("text-align", "center");
+  select("#container0").style("width", "1020px");
+  select("#container0").style("margin", "auto auto");
+  cnv.parent("#container0");
+  select('body').style("background-color", "#99D3DF");
 
   for(var i = 10; i < balloonAmount; i++){
     balloonX[i] = random(0,1000);
@@ -121,7 +143,12 @@ function setup() {
   this.textColor = "black";
   }
   chessClick.onPress = function(){
-    alert("The player controlling the white pieces is named 'White'; the player controlling the black pieces is named 'Black'. White moves first, then players alternate moves. Making a move is required; it is not legal to skip a move, even when having to move is detrimental. Play continues until a king is checkmated, a player resigns, or a draw is declared. ");
+    if(chessShow == true){
+      chessShow = false;
+      chessVid.hide();
+    }else{
+      chessShow = true;
+    }
   }
 
   ropeClick = new Clickable();
@@ -138,7 +165,18 @@ function setup() {
   this.textColor = "black";
   }
   ropeClick.onPress = function(){
-    alert("In speed events, a jumper alternates their feet with the rope going around the jumper every time one of their feet hit the ground for 30 seconds, one minute, or three minutes. The jumper is judged on the number of times the right foot touches the ground in those times. ");
+    if(ropeShow == true){
+      ropeShow = false;
+    }else{
+      ropeShow = true;
+    }
+    asterisk = createSprite(865,100);
+    asterisk.addAnimation('normal', 'play/examples/assets/asterisk_normal0001.png', 'play/examples/assets/asterisk_normal0003.png');
+    asterisk.addAnimation('stretch', 'play/examples/assets/asterisk_stretching0001.png', 'play/examples/assets/asterisk_stretching0008.png');
+    asterisk.setCollider('circle', 0, 0, 64);
+
+    platform = createSprite(865,330);
+    platform.addAnimation('normal', 'play/examples/assets/small_platform0001.png', 'play/examples/assets/small_platform0003.png');
   }
 
   seesawClick = new Clickable();
@@ -158,6 +196,9 @@ function setup() {
     alert("Seesaw seats are like swings: one child per seat. A child who is too light to seesaw with a partner should find a different partner — not add another child to his or her side of the seesaw. Kids should always sit facing one another, not turned around. Teach kids to hold on tightly with both hands while on a seesaw, not to touch the ground or push off with their hands, and to keep feet to the sides, out from underneath the seesaw. Kids should stand back from a seesaw when it's in use. They should never stand beneath a raised seesaw, stand and rock in the middle, or try to climb onto it while it's in motion. ");
   }
 
+  chessVid.hide();
+
+
 } //end of setup
 
 function draw() {
@@ -167,7 +208,36 @@ function draw() {
   image(parkImage, 20,0, parkImage.width/2, parkImage.height/2);
   image(signImage, 410,460, signImage.width/4, signImage.height/4);
   image(chessImage, 720,420, chessImage.width/10, chessImage.height/10);
+  if(chessShow == true){
+    rect(790,420,205,165);
+    text("The player controlling the white pieces is named 'White'; the player controlling the black pieces is named 'Black'. White moves first, then players alternate moves. Making a move is required; it is not legal to skip a move, even when having to move is detrimental. Play continues until a king is checkmated, a player resigns, or a draw is declared. ", 795,430,200,170);
+    chessVid.show();
+    chessVid.play();
+    chessVid.size(240,230);
+    chessVid.position(790,300);
+  }
+
   image(ropeImage, 580,220, ropeImage.width/4, ropeImage.height/4);
+  if(ropeShow == true){
+    rect(490,360,165,165);
+    text("In speed events, a jumper alternates their feet with the rope going around the jumper every time one of their feet hit the ground for 30 seconds, one minute, or three minutes. The jumper is judged on the number of times the right foot touches the ground in those times. ", 495,370,160,170);
+    rect(750,10,230,360);
+    fill(0);
+    textAlign(CENTER);
+    text('Press X to jump!', width/2, 20);
+    asterisk.velocity.y += GRAVITY;
+    if(asterisk.collide(platform)) {
+      asterisk.velocity.y = 0;
+      asterisk.changeAnimation('normal');
+    }
+    if(keyWentDown('x') || mouseWentDown(LEFT))
+    {
+      asterisk.changeAnimation('stretch');
+      asterisk.animation.rewind();
+      asterisk.velocity.y = -JUMP;
+    }
+  }
+
   image(seesawImage, 320,330, seesawImage.width/5, seesawImage.height/5);
   image(birdImage, 220,90, birdImage.width/6, birdImage.height/6);
 
