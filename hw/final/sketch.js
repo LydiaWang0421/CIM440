@@ -15,6 +15,11 @@ var chessClick;
 var ropeClick;
 var seesawClick;
 
+var asterisk;
+var platform;
+var GRAVITY = 1;
+var JUMP = 15;
+
 var balloonX = [];
 var balloonY = [];
 var balloonAmount = 30;
@@ -35,17 +40,17 @@ var birdW = 20;
 var birdH = 20;
 
 function preload(){
-  parkImage = loadImage("images/park.png");
-  signImage = loadImage("images/sign.png");
-  chessImage = loadImage("images/chess.png");
-  ropeImage = loadImage("images/rope.png");
-  seesawImage = loadImage("images/seesaw.png");
-  birdImage = loadImage("images/bird.png");
+  parkImage = loadImage("assets/park.png");
+  signImage = loadImage("assets/sign.png");
+  chessImage = loadImage("assets/chess.png");
+  ropeImage = loadImage("assets/rope.png");
+  seesawImage = loadImage("assets/seesaw.png");
+  birdImage = loadImage("assets/bird.png");
 
-  balloonImage = loadImage("images/balloon.png");
+  balloonImage = loadImage("assets/balloon.png");
 
-  chessVid = createVideo("images/chessvid.mp4");
-  slideVid = createVideo("images/slidevid.mp4");
+  chessVid = createVideo("assets/chessvid.mp4");
+  slideVid = createVideo("assets/slidevid.mp4");
 
 } //end of preload
 
@@ -184,6 +189,13 @@ function setup() {
       ropeShow = false;
     }else{
       ropeShow = true;
+      asterisk = createSprite(850, 100);
+      asterisk.addAnimation('normal', 'play/examples/assets/asterisk_normal0001.png', 'play/examples/assets/asterisk_normal0003.png');
+      asterisk.addAnimation('stretch', 'play/examples/assets/asterisk_stretching0001.png', 'play/examples/assets/asterisk_stretching0008.png');
+      asterisk.setCollider('circle', 0, 0, 64);
+
+      platform = createSprite(850, 300);
+      platform.addAnimation('normal', 'play/examples/assets/small_platform0001.png', 'play/examples/assets/small_platform0003.png');
     }
   }
 
@@ -236,10 +248,10 @@ function draw() {
 
   stretchy.velocity.x = (mouseX-stretchy.position.x)/10;
   stretchy.velocity.y = (mouseY-stretchy.position.y)/10;
-  drawSprites();
 
   if(swingShow == true){
     rect(15,40,145,300);
+    fill("black");
     text("Kids should always sit in the swing, not stand or kneel. They should hold on tightly with both hands while swinging, and when finished swinging, stop the swing completely before getting off. Children should stay a safe distance from other kids on swings, being careful not to run or walk in front of or in back of moving swings. Kids should never ride with more than one child to a swing. Swings are designed to safely hold only one person. ", 20,50,140,305);
   }
 
@@ -253,7 +265,9 @@ function draw() {
   }
 
   if(chessShow == true){
+    fill("white");
     rect(790,420,205,165);
+    fill("black");
     text("The player controlling the white pieces is named 'White'; the player controlling the black pieces is named 'Black'. White moves first, then players alternate moves. Making a move is required; it is not legal to skip a move, even when having to move is detrimental. Play continues until a king is checkmated, a player resigns, or a draw is declared. ", 795,430,200,170);
     chessVid.show();
     chessVid.play();
@@ -262,8 +276,22 @@ function draw() {
   }
 
   if(ropeShow == true){
+    fill("white");
     rect(580,375,135,205);
-    text("In speed events, a jumper alternates their feet with the rope going around the jumper every time one of their feet hit the ground for 30 seconds, one minute, or three minutes. The jumper is judged on the number of times the right foot touches the ground in those times. ", 585,385,130,190);
+    fill("black");
+    text("Press x to jump!             In speed events, a jumper alternates their feet with the rope going around the jumper every time one of their feet hit the ground for 30 seconds, one minute, or three minutes. The jumper is judged on the number of times the right foot touches the ground in those times. ", 585,385,130,190);
+    asterisk.velocity.y += GRAVITY;
+    if(asterisk.collide(platform)){
+      asterisk.velocity.y = 0;
+      asterisk.changeAnimation('normal');
+    }
+    if(keyWentDown('x') || mouseWentDown(LEFT)){
+      asterisk.changeAnimation('stretch');
+      asterisk.animation.rewind();
+      asterisk.velocity.y = -JUMP;
+    }
+    drawSprites();
+
   }
 
   if(seesawShow == true){
