@@ -4,6 +4,7 @@ var chessImage;
 var ropeImage;
 var seesawImage;
 var birdImage;
+var dogImage;
 
 var stretchy;
 var face;
@@ -39,6 +40,11 @@ var birdY = 105;
 var birdW = 20;
 var birdH = 20;
 
+var dogX = 845;
+var dogY = 220;
+var dogW = 20;
+var dogH = 20;
+
 function preload(){
   parkImage = loadImage("assets/park.png");
   signImage = loadImage("assets/sign.png");
@@ -46,6 +52,7 @@ function preload(){
   ropeImage = loadImage("assets/rope.png");
   seesawImage = loadImage("assets/seesaw.png");
   birdImage = loadImage("assets/bird.png");
+  dogImage = loadImage("assets/dog.png");
 
   balloonImage = loadImage("assets/balloon.png");
 
@@ -230,6 +237,7 @@ function draw() {
   background("#D3F5F2");
 
   image(parkImage, 20,0, parkImage.width/2, parkImage.height/2);
+
   image(signImage, 410,460, signImage.width/4, signImage.height/4);
   image(chessImage, 720,420, chessImage.width/10, chessImage.height/10);
   image(ropeImage, 580,220, ropeImage.width/4, ropeImage.height/4);
@@ -237,47 +245,64 @@ function draw() {
 
   if(mouseX > birdX && mouseX < birdX+birdW && mouseY > birdY && mouseY < birdY+birdH){
     console.log("In rectangle");
+    rect(25,5,153,170);
     text("Birds, also known as Aves or avian dinosaurs, are a group of endothermic vertebrates, characterised by feathers, toothless beaked jaws, the laying of hard-shelled eggs, a high metabolic rate, a four-chambered heart, and a strong yet lightweight skeleton.", 30,10,150,200);
   }
   fill("black");
   text("This is a BIRD!", birdX-5, birdY-15);
   fill("white");
   rect(birdX,birdY,birdW,birdH);
-
   image(birdImage, 220,90, birdImage.width/6, birdImage.height/6);
+
+  if(mouseX > dogX && mouseX < dogX+dogW && mouseY > dogY && mouseY < dogY+dogH){
+    console.log("In rectangle");
+    rect(725,15,155,170);
+    fill("black");
+    text("The domestic dog (Canis lupus familiaris when considered a subspecies of the wolf or Canis familiaris when considered a distinct species)[5] is a member of the genus Canis (canines), which forms part of the wolf-like canids,[6] and is the most widely abundant terrestrial carnivore.", 730,20,150,200);
+  }
+  fill("black");
+  text("This is a DOG!", dogX-65, dogY-15);
+  fill("white");
+  rect(dogX,dogY,dogW,dogH);
+  image(dogImage, 830,200, dogImage.width/8, dogImage.height/8);
 
   stretchy.velocity.x = (mouseX-stretchy.position.x)/10;
   stretchy.velocity.y = (mouseY-stretchy.position.y)/10;
+  drawSprites();
 
   if(swingShow == true){
+    fill("white");
     rect(15,40,145,300);
     fill("black");
     text("Kids should always sit in the swing, not stand or kneel. They should hold on tightly with both hands while swinging, and when finished swinging, stop the swing completely before getting off. Children should stay a safe distance from other kids on swings, being careful not to run or walk in front of or in back of moving swings. Kids should never ride with more than one child to a swing. Swings are designed to safely hold only one person. ", 20,50,140,305);
   }
 
   if(slideShow == true){
-    rect(260,8,280,77);
-    text("Kids should always slide down feet first and sitting up, never head first or on their back or stomach. Only one child should be on the slide platform at a time, and kids shouldn't slide down in groups. Kids should always check that the bottom of the slide is clear before sliding down. ", 265,12,275,80);
+    fill("white");
+    rect(530,10,425,125);
+    fill("black");
+    text("Kids should always slide down feet first and sitting up, never head first or on their back or stomach. Only one child should be on the slide platform at a time, and kids shouldn't slide down in groups. Kids should always check that the bottom of the slide is clear before sliding down. ", 535,15,200,145);
     slideVid.show();
     slideVid.play();
-    slideVid.size(220,230);
-    slideVid.position(640,35);
+    slideVid.size(200,230);
+    slideVid.position(815,40);
   }
 
   if(chessShow == true){
     fill("white");
-    rect(790,420,205,165);
+    rect(785,270,210,315);
     fill("black");
     text("The player controlling the white pieces is named 'White'; the player controlling the black pieces is named 'Black'. White moves first, then players alternate moves. Making a move is required; it is not legal to skip a move, even when having to move is detrimental. Play continues until a king is checkmated, a player resigns, or a draw is declared. ", 795,430,200,170);
     chessVid.show();
     chessVid.play();
-    chessVid.size(240,230);
-    chessVid.position(850,300);
+    chessVid.size(205,230);
+    chessVid.position(860,300);
   }
 
   if(ropeShow == true){
     fill("white");
     rect(580,375,135,205);
+    rect(743,15,215,335);
     fill("black");
     text("Press x to jump!             In speed events, a jumper alternates their feet with the rope going around the jumper every time one of their feet hit the ground for 30 seconds, one minute, or three minutes. The jumper is judged on the number of times the right foot touches the ground in those times. ", 585,385,130,190);
     asterisk.velocity.y += GRAVITY;
@@ -291,11 +316,12 @@ function draw() {
       asterisk.velocity.y = -JUMP;
     }
     drawSprites();
-
   }
 
   if(seesawShow == true){
+    fill("white");
     rect(185,150,200,210);
+    fill("black");
     text("Seesaw seats are like swings: one child per seat. A child who is too light to seesaw with a partner should find a different partner — not add another child to his or her side of the seesaw. Kids should always sit facing one another, not turned around. Teach kids to hold on tightly with both hands while on a seesaw, not to touch the ground or push off with their hands, and to keep feet to the sides, out from underneath the seesaw. ", 190,160,195,190);
   }
 
