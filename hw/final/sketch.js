@@ -2,6 +2,7 @@ var parkImage;
 var signImage;
 var chessImage;
 var ropeImage;
+var jumpropeImage;
 var seesawImage;
 var birdImage;
 var dogImage;
@@ -50,6 +51,7 @@ function preload(){
   signImage = loadImage("assets/sign.png");
   chessImage = loadImage("assets/chess.png");
   ropeImage = loadImage("assets/rope.png");
+  jumpropeImage = loadImage("assets/jumprope.png");
   seesawImage = loadImage("assets/seesaw.png");
   birdImage = loadImage("assets/bird.png");
   dogImage = loadImage("assets/dog.png");
@@ -100,7 +102,7 @@ function setup() {
   signClick.resize(120,30);
   signClick.onHover = function(){
   this.color = "SaddleBrown";
-  this.text = "PLAYGROUND RULES";
+  this.text = "HAPPYGROUND";
   this.textColor = "white";
   }
   signClick.onOutside = function(){
@@ -109,7 +111,7 @@ function setup() {
   this.textColor = "black";
   }
   signClick.onPress = function(){
-    alert("Click OK to see PLAYGROUND RULES");
+    alert("Welcome to HAPPYGROUND! You can have fun here! Please click the stars to see the rules of each playground equipment, and hover over the animals to explore more! Now click OK to see general PLAYGROUND RULES! ");
     alert("PLAYGROUND RULES: Use playground at own risk. Children under the age of 12 must be accompanied by an adult. No glass or alcoholic beverages. Proper footwear required. Improper use of equipment prohibited. Playground hours from 8:00 am to 7:30 pm. ");
   }
 
@@ -172,11 +174,13 @@ function setup() {
   chessClick.onPress = function(){
     if(chessShow == true){
       chessShow = false;
-      chessVid.hide();
+
     }else{
       chessShow = true;
     }
   }
+
+  chessVid.hide();
 
   ropeClick = new Clickable();
   ropeClick.locate(660,330);
@@ -194,17 +198,29 @@ function setup() {
   ropeClick.onPress = function(){
     if(ropeShow == true){
       ropeShow = false;
+      asterisk.visible = false;
+      platform.visible = false;
+
     }else{
       ropeShow = true;
-      asterisk = createSprite(850, 100);
-      asterisk.addAnimation('normal', 'play/examples/assets/asterisk_normal0001.png', 'play/examples/assets/asterisk_normal0003.png');
-      asterisk.addAnimation('stretch', 'play/examples/assets/asterisk_stretching0001.png', 'play/examples/assets/asterisk_stretching0008.png');
-      asterisk.setCollider('circle', 0, 0, 64);
+      asterisk.visible = true;
+      platform.visible = true;
 
-      platform = createSprite(850, 300);
-      platform.addAnimation('normal', 'play/examples/assets/small_platform0001.png', 'play/examples/assets/small_platform0003.png');
     }
   }
+
+  asterisk = createSprite(850, 100);
+  asterisk.addAnimation('normal', 'play/examples/assets/asterisk_normal0001.png', 'play/examples/assets/asterisk_normal0003.png');
+  asterisk.addAnimation('stretch', 'play/examples/assets/asterisk_stretching0001.png', 'play/examples/assets/asterisk_stretching0008.png');
+  asterisk.setCollider('circle', 0, 0, 64);
+
+  platform = createSprite(850, 300);
+  platform.addAnimation('normal', 'play/examples/assets/small_platform0001.png', 'play/examples/assets/small_platform0003.png');
+
+  asterisk.visible = false;
+  platform.visible = false;
+
+
 
   seesawClick = new Clickable();
   seesawClick.locate(410,375);
@@ -293,10 +309,12 @@ function draw() {
     rect(785,270,210,315);
     fill("black");
     text("The player controlling the white pieces is named 'White'; the player controlling the black pieces is named 'Black'. White moves first, then players alternate moves. Making a move is required; it is not legal to skip a move, even when having to move is detrimental. Play continues until a king is checkmated, a player resigns, or a draw is declared. ", 795,430,200,170);
-    chessVid.show();
+  //chessVid.show();
     chessVid.play();
-    chessVid.size(205,230);
-    chessVid.position(860,300);
+//    chessVid.size(205,230);
+//    chessVid.position(860,300);
+
+    image(chessVid,860,300,chessVid.width/5,chessVid.height/5);
   }
 
   if(ropeShow == true){
@@ -311,6 +329,7 @@ function draw() {
       asterisk.changeAnimation('normal');
     }
     if(keyWentDown('x') || mouseWentDown(LEFT)){
+      image(jumpropeImage, 750,120, jumpropeImage.width/3, ropeImage.height/4);
       asterisk.changeAnimation('stretch');
       asterisk.animation.rewind();
       asterisk.velocity.y = -JUMP;
