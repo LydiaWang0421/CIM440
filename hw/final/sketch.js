@@ -131,7 +131,7 @@ function setup() {
   swingClick.onPress = function(){
     if(swingShow == true){
       swingShow = false;
-    }else{
+    }else{ 
       swingShow = true;
     }
   }
