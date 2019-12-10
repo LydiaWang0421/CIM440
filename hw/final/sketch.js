@@ -180,8 +180,6 @@ function setup() {
     }
   }
 
-  chessVid.hide();
-
   ropeClick = new Clickable();
   ropeClick.locate(660,330);
   ropeClick.resize(80,40);
@@ -219,8 +217,6 @@ function setup() {
 
   asterisk.visible = false;
   platform.visible = false;
-
-
 
   seesawClick = new Clickable();
   seesawClick.locate(410,375);
@@ -298,10 +294,8 @@ function draw() {
     rect(530,10,425,125);
     fill("black");
     text("Kids should always slide down feet first and sitting up, never head first or on their back or stomach. Only one child should be on the slide platform at a time, and kids shouldn't slide down in groups. Kids should always check that the bottom of the slide is clear before sliding down. ", 535,15,200,145);
-    slideVid.show();
     slideVid.play();
-    slideVid.size(200,230);
-    slideVid.position(815,40);
+    image(slideVid,735,22,slideVid.width/6,slideVid.height/7);
   }
 
   if(chessShow == true){
@@ -309,12 +303,8 @@ function draw() {
     rect(785,270,210,315);
     fill("black");
     text("The player controlling the white pieces is named 'White'; the player controlling the black pieces is named 'Black'. White moves first, then players alternate moves. Making a move is required; it is not legal to skip a move, even when having to move is detrimental. Play continues until a king is checkmated, a player resigns, or a draw is declared. ", 795,430,200,170);
-  //chessVid.show();
     chessVid.play();
-//    chessVid.size(205,230);
-//    chessVid.position(860,300);
-
-    image(chessVid,860,300,chessVid.width/5,chessVid.height/5);
+    image(chessVid,798,290,chessVid.width/7,chessVid.height/6);
   }
 
   if(ropeShow == true){
